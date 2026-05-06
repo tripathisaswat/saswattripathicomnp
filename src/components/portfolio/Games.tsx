@@ -24,6 +24,8 @@ export const Games = () => (
           <a
             key={g.name}
             href={g.path}
+            target="_blank"
+            rel="noreferrer"
             className="bg-background p-8 group hover:bg-card transition-colors flex flex-col"
           >
             <div className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">
