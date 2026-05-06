@@ -1,12 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 
+const SITE = "https://www.saswattripathi.com.np";
 const tools = [
-  { name: "Nepal Calendar", desc: "Multi-calendar system with festivals & events", path: "/calendar" },
-  { name: "Tax Calculator", desc: "Nepal tax calculation and planning tools", path: "/tax-calculator" },
-  { name: "Finance Tools", desc: "NEPSE, forex, and market analysis", path: "/finance" },
-  { name: "Weather Portal", desc: "Weather forecasts for Nepal cities", path: "/weather" },
-  { name: "Unicode Converter", desc: "Nepali text conversion tools", path: "/tools" },
-  { name: "Nepal Explorer", desc: "Discover Nepal's culture and facts", path: "/explore" },
+  { name: "Nepal Calendar", desc: "Multi-calendar system with festivals & events", path: `${SITE}/calendar` },
+  { name: "Tax Calculator", desc: "Nepal tax calculation and planning tools", path: `${SITE}/tax-calculator` },
+  { name: "Finance Tools", desc: "NEPSE, forex, and market analysis", path: `${SITE}/finance` },
+  { name: "Weather Portal", desc: "Weather forecasts for Nepal cities", path: `${SITE}/weather` },
+  { name: "Unicode Converter", desc: "Nepali text conversion tools", path: `${SITE}/tools` },
+  { name: "Nepal Explorer", desc: "Discover Nepal's culture and facts", path: `${SITE}/explore` },
 ];
 
 export const Tools = () => (
