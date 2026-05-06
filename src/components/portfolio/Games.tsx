@@ -1,10 +1,11 @@
+const SITE = "https://www.saswattripathi.com.np";
 const games = [
-  { name: "Connect Four", icon: "🔴", desc: "Classic strategy", path: "/games/connect-four" },
-  { name: "Tic Tac Toe", icon: "❌", desc: "Traditional 3x3 grid", path: "/games/tic-tac-toe" },
-  { name: "Snake", icon: "🐍", desc: "Classic arcade", path: "/games/snake" },
-  { name: "Connect Dots", icon: "⚫", desc: "Puzzle solver", path: "/games/connect-dots" },
-  { name: "Dino Runner", icon: "🦕", desc: "Endless runner", path: "/games/dino-runner" },
-  { name: "Memory Match", icon: "🧠", desc: "Memory cards", path: "/games/memory-match" },
+  { name: "Connect Four", icon: "🔴", desc: "Classic strategy", path: `${SITE}/games/connect-four` },
+  { name: "Tic Tac Toe", icon: "❌", desc: "Traditional 3x3 grid", path: `${SITE}/games/tic-tac-toe` },
+  { name: "Snake", icon: "🐍", desc: "Classic arcade", path: `${SITE}/games/snake` },
+  { name: "Connect Dots", icon: "⚫", desc: "Puzzle solver", path: `${SITE}/games/connect-dots` },
+  { name: "Dino Runner", icon: "🦕", desc: "Endless runner", path: `${SITE}/games/dino-runner` },
+  { name: "Memory Match", icon: "🧠", desc: "Memory cards", path: `${SITE}/games/memory-match` },
 ];
 
 export const Games = () => (
@@ -23,6 +24,8 @@ export const Games = () => (
           <a
             key={g.name}
             href={g.path}
+            target="_blank"
+            rel="noreferrer"
             className="bg-background p-8 group hover:bg-card transition-colors flex flex-col"
           >
             <div className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">
