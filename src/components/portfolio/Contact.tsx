@@ -85,7 +85,7 @@ export const Contact = () => {
           >
             <div className="grid sm:grid-cols-2 gap-4">
               <Field name="name" label="Name" />
-              <Field name="email" label="Email" type="email" />
+              <Field name="email" label="Email" inputType="email" />
             </div>
             <Field name="subject" label="Subject" />
             <div>
