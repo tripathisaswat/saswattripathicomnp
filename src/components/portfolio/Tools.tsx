@@ -26,6 +26,8 @@ export const Tools = () => (
           <a
             key={t.name}
             href={t.path}
+            target="_blank"
+            rel="noreferrer"
             className="bg-background p-8 group hover-lift relative block"
           >
             <div className="font-mono text-xs text-muted-foreground mb-6">
