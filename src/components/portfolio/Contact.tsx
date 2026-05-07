@@ -1,11 +1,11 @@
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, Send } from "lucide-react";
+import { Mail, MessageCircle, MapPin, Github, Linkedin, Instagram, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const items = [
   { icon: Mail, label: "Email", value: "saswatkingtrip@gmail.com", href: "mailto:saswatkingtrip@gmail.com" },
-  { icon: Phone, label: "Phone", value: "+977 9861054079", href: "tel:+9779861054079" },
-  { icon: MapPin, label: "Location", value: "Kathmandu, Nepal", href: "#" },
+  { icon: MessageCircle, label: "WhatsApp", value: "+977 9861054079", href: "https://wa.me/9779861054079" },
+  { icon: MapPin, label: "Location", value: "Lalitpur, Nepal", href: "#" },
 ];
 
 export const Contact = () => {

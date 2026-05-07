@@ -1,20 +1,20 @@
 const skills = [
-  "JavaScript", "TypeScript", "React", "Next.js", "Node.js",
-  "Python", "Java", "PHP", "PostgreSQL", "MongoDB",
-  "AWS", "Docker", "Kubernetes",
+  "Project Management", "ERP Systems", "Blazor", ".NET", "C#",
+  "React", "TypeScript", "Node.js", "PostgreSQL", "DevOps",
+  "AI Agents", "LLMs", "System Architecture", "Consulting",
 ];
 
 const stats = [
-  { v: "50+", l: "Projects" },
   { v: "5+", l: "Years exp" },
-  { v: "20+", l: "Clients" },
-  { v: "100%", l: "Satisfaction" },
+  { v: "ERP", l: "Specialist" },
+  { v: "AI", l: "Agents built" },
+  { v: "PM", l: "Role" },
 ];
 
 const bars = [
-  { l: "Frontend", v: 95 },
-  { l: "Backend", v: 90 },
-  { l: "Database", v: 85 },
+  { l: "Project Management", v: 95 },
+  { l: "ERP / Backend", v: 92 },
+  { l: "AI Agents & Consulting", v: 88 },
 ];
 
 export const About = () => (
@@ -28,14 +28,14 @@ export const About = () => (
       <div className="grid lg:grid-cols-2 gap-12 mb-20">
         <div className="space-y-6 text-muted-foreground leading-relaxed">
           <p>
-            I'm a passionate software developer based in Kathmandu, Nepal with{" "}
-            <span className="text-foreground">5+ years</span> of experience building
-            robust, scalable solutions in full-stack development, ERP systems and cloud.
+            I'm a <span className="text-foreground">Project Manager</span> at Neosoftware,
+            based in Lalitpur, Nepal — with <span className="text-foreground">5+ years</span>{" "}
+            building and leading the development of home-grown ERP systems.
           </p>
           <p>
-            I love turning complex problems into simple, beautiful code. When I'm not at
-            the keyboard, I'm beatboxing, exploring new tech, or shipping side-projects
-            for the Nepalese community.
+            I also <span className="text-foreground">consult</span> on ERP, software architecture
+            and digital strategy, and I <span className="text-foreground">build AI agents</span>{" "}
+            that automate real workflows for businesses in Nepal and beyond.
           </p>
         </div>
 
