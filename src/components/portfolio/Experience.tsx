@@ -1,39 +1,43 @@
 const jobs = [
   {
-    role: "Senior Software Developer",
-    co: "NeoSoftware Pvt. Ltd.",
-    period: "2021 — Present",
-    desc: "Leading ERP development projects and managing a team of developers.",
-    bullets: [
-      "Led development of enterprise ERP solutions",
-      "Managed team of 5+ developers",
-      "Improved system performance by 40%",
-      "Implemented CI/CD pipelines",
-    ],
+    role: "Project Manager",
+    co: "Neosoftware Pvt. Ltd.",
+    period: "Jul 2025 — Present",
+    location: "Jhamsikhel, Lalitpur",
+    desc: "Leading a talented team to streamline operations, enhance UX, and deliver scalable ERP solutions for modern businesses.",
+    bullets: ["Project Management", "Project Planning", "Team Leadership", "ERP Strategy"],
   },
   {
-    role: "Software Developer",
-    co: "CodexOrient",
-    period: "2019 — 2021",
-    desc: "Developed custom software solutions for finance and healthcare sectors.",
-    bullets: [
-      "Built mobile applications using Flutter",
-      "Implemented secure authentication systems",
-      "Created data visualization dashboards",
-      "Worked with healthcare compliance standards",
-    ],
+    role: "Senior Software Developer / Team Lead",
+    co: "Neosoftware Pvt. Ltd.",
+    period: "Mar 2022 — Jul 2025",
+    location: "Jhamsikhel, Lalitpur",
+    desc: "Architected and built a home-grown ERP system from the ground up.",
+    bullets: ["Blazor", "DevOps", ".NET", "PostgreSQL", "System Architecture", "CI/CD"],
   },
   {
-    role: "Junior Developer",
+    role: "Junior Consultant",
+    co: "Neosoftware Pvt. Ltd.",
+    period: "May 2021 — Mar 2022",
+    location: "Kathmandu, Nepal",
+    desc: "ERP consulting on the SAP system; database and backend foundations.",
+    bullets: ["RDBMS", "ASP.NET MVC", "SAP", "Consulting"],
+  },
+  {
+    role: "Data Quality Analyst",
     co: "CloudFactory",
-    period: "2017 — 2019",
-    desc: "Started career in cloud-based data processing applications.",
-    bullets: [
-      "Developed data processing pipelines",
-      "Worked with machine learning models",
-      "Contributed to internal tools development",
-      "Learned cloud technologies and best practices",
-    ],
+    period: "Jan 2019 — Nov 2019",
+    location: "Nepal",
+    desc: "Intelligence analysis and data quality on cloud-based pipelines.",
+    bullets: ["Intelligence Analysis", "HUMINT", "Data QA"],
+  },
+  {
+    role: "Flow Worker",
+    co: "CloudFactory",
+    period: "Dec 2018 — Nov 2019",
+    location: "Nepal",
+    desc: "Data analytics and processing across distributed workflows.",
+    bullets: ["Data Analytics", "Intelligence Analysis"],
   },
 ];
 
@@ -48,12 +52,13 @@ export const Experience = () => (
       <div className="space-y-px bg-border">
         {jobs.map((j, i) => (
           <article
-            key={j.co}
+            key={i}
             className="bg-background p-8 lg:p-10 grid lg:grid-cols-12 gap-6 group hover:bg-card transition-colors"
           >
             <div className="lg:col-span-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">
               <div className="text-primary mb-1">0{i + 1}</div>
               {j.period}
+              <div className="mt-1 normal-case tracking-normal">{j.location}</div>
             </div>
             <div className="lg:col-span-9 space-y-4">
               <div>
@@ -63,13 +68,13 @@ export const Experience = () => (
                 <p className="font-mono text-sm text-muted-foreground mt-1">@ {j.co}</p>
               </div>
               <p className="text-muted-foreground">{j.desc}</p>
-              <ul className="grid sm:grid-cols-2 gap-2">
+              <ul className="flex flex-wrap gap-2">
                 {j.bullets.map((b) => (
                   <li
                     key={b}
-                    className="font-mono text-xs text-muted-foreground flex gap-2"
+                    className="font-mono text-xs text-muted-foreground border border-border px-2 py-1"
                   >
-                    <span className="text-primary">▸</span> {b}
+                    {b}
                   </li>
                 ))}
               </ul>

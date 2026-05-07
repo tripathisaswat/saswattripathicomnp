@@ -22,8 +22,8 @@ export const Hero = () => (
         </h1>
 
         <p className="font-mono text-sm sm:text-base text-muted-foreground max-w-xl">
-          <span className="text-primary">&gt;</span> Senior Software Developer building
-          ERP systems, full-stack apps, and digital tools for Nepal.{" "}
+          <span className="text-primary">&gt;</span> Project Manager at Neosoftware. I lead
+          ERP teams, consult on software strategy, and build AI agents.{" "}
           <span className="cursor-blink" />
         </p>
 
