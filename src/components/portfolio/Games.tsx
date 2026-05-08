@@ -1,12 +1,18 @@
-type Game = { name: string; icon: string; desc: string; href: string };
+import { AppDialog } from "@/components/apps/AppDialog";
+import TicTacToeApp from "@/components/apps/games/TicTacToeApp";
+import ConnectFourApp from "@/components/apps/games/ConnectFourApp";
+import SnakeApp from "@/components/apps/games/SnakeApp";
+import ConnectDotsApp from "@/components/apps/games/ConnectDotsApp";
+import DinoApp from "@/components/apps/games/DinoApp";
+import MemoryApp from "@/components/apps/games/MemoryApp";
 
-const games: Game[] = [
-  { name: "Connect Four", icon: "🔴", desc: "Classic strategy", href: "/games/connect-four" },
-  { name: "Tic Tac Toe", icon: "❌", desc: "Traditional 3x3 grid", href: "/games/tic-tac-toe" },
-  { name: "Snake", icon: "🐍", desc: "Classic arcade", href: "/games/snake" },
-  { name: "Connect Dots", icon: "⚫", desc: "Puzzle solver", href: "/games/connect-dots" },
-  { name: "Dino Runner", icon: "🦕", desc: "Endless runner", href: "/games/dino" },
-  { name: "Memory Match", icon: "🧠", desc: "Memory cards", href: "/games/memory" },
+const games = [
+  { name: "Connect Four", icon: "🔴", desc: "Classic strategy", label: "games/connect-four", Comp: ConnectFourApp },
+  { name: "Tic Tac Toe", icon: "❌", desc: "Traditional 3x3 grid", label: "games/tic-tac-toe", Comp: TicTacToeApp },
+  { name: "Snake", icon: "🐍", desc: "Classic arcade", label: "games/snake", Comp: SnakeApp },
+  { name: "Connect Dots", icon: "⚫", desc: "Dots & boxes", label: "games/connect-dots", Comp: ConnectDotsApp },
+  { name: "Dino Runner", icon: "🦕", desc: "Endless runner", label: "games/dino", Comp: DinoApp },
+  { name: "Memory Match", icon: "🧠", desc: "Memory cards", label: "games/memory", Comp: MemoryApp },
 ];
 
 export const Games = () => (
@@ -17,28 +23,30 @@ export const Games = () => (
         Interactive games<span className="text-primary">.</span>
       </h2>
       <p className="text-muted-foreground max-w-2xl mb-16">
-        Fun browser games built with modern web tech.
+        Fun browser games — play instantly in a popup.
       </p>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-        {games.map((g) => (
-          <a
-            key={g.name}
-            href={g.href}
-            className="bg-background p-8 group hover:bg-card transition-colors flex flex-col"
-          >
-            <div className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">
-              {g.icon}
-            </div>
-            <h3 className="text-lg font-bold group-hover:text-primary transition-colors">
-              {g.name}
-            </h3>
-            <p className="font-mono text-xs text-muted-foreground mt-1">{g.desc}</p>
-            <div className="font-mono text-xs uppercase tracking-wider mt-6 text-primary">
-              [ play ]
-            </div>
-          </a>
-        ))}
+        {games.map((g) => {
+          const Comp = g.Comp;
+          return (
+            <AppDialog
+              key={g.name}
+              label={g.label}
+              title={g.name}
+              trigger={
+                <button className="bg-background p-8 group hover:bg-card transition-colors flex flex-col text-left w-full">
+                  <div className="text-5xl mb-6 group-hover:scale-110 transition-transform origin-left">{g.icon}</div>
+                  <h3 className="text-lg font-bold group-hover:text-primary transition-colors">{g.name}</h3>
+                  <p className="font-mono text-xs text-muted-foreground mt-1">{g.desc}</p>
+                  <div className="font-mono text-xs uppercase tracking-wider mt-6 text-primary">[ play ]</div>
+                </button>
+              }
+            >
+              <Comp />
+            </AppDialog>
+          );
+        })}
       </div>
     </div>
   </section>

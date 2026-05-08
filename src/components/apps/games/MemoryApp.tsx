@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { PageShell } from "@/components/portfolio/PageShell";
 
 const EMOJIS = ["🌸", "🍕", "🚀", "🎸", "⚡", "🌙", "🔥", "🎲"];
 
-export default function Memory() {
+export default function MemoryApp() {
   const [cards, setCards] = useState<{ v: string; flipped: boolean; matched: boolean }[]>([]);
   const [picks, setPicks] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
@@ -12,9 +11,7 @@ export default function Memory() {
     const arr = [...EMOJIS, ...EMOJIS]
       .sort(() => Math.random() - 0.5)
       .map((v) => ({ v, flipped: false, matched: false }));
-    setCards(arr);
-    setPicks([]);
-    setMoves(0);
+    setCards(arr); setPicks([]); setMoves(0);
   };
 
   useEffect(init, []);
@@ -24,8 +21,7 @@ export default function Memory() {
     const nc = cards.slice();
     nc[i] = { ...nc[i], flipped: true };
     const np = [...picks, i];
-    setCards(nc);
-    setPicks(np);
+    setCards(nc); setPicks(np);
     if (np.length === 2) {
       setMoves((m) => m + 1);
       const [a, b] = np;
@@ -46,26 +42,19 @@ export default function Memory() {
   const won = cards.length > 0 && cards.every((c) => c.matched);
 
   return (
-    <PageShell label="games/memory" title="Memory Match">
-      <p className="font-mono text-sm text-muted-foreground mb-6">
-        Moves: {moves} {won && "— You won!"}
-      </p>
-      <div className="grid grid-cols-4 gap-3 max-w-md">
+    <div>
+      <p className="font-mono text-sm text-muted-foreground mb-4">Moves: {moves} {won && "— You won!"}</p>
+      <div className="grid grid-cols-4 gap-2 max-w-sm">
         {cards.map((c, i) => (
-          <button
-            key={i}
-            onClick={() => click(i)}
-            className={`aspect-square text-3xl border border-border transition-colors ${
-              c.flipped ? "bg-card" : "bg-secondary"
-            } ${c.matched ? "opacity-40" : ""}`}
-          >
+          <button key={i} onClick={() => click(i)}
+            className={`aspect-square text-2xl border border-border ${c.flipped ? "bg-card" : "bg-secondary"} ${c.matched ? "opacity-40" : ""}`}>
             {c.flipped ? c.v : ""}
           </button>
         ))}
       </div>
-      <button onClick={init} className="mt-6 font-mono text-xs uppercase tracking-wider text-primary border border-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors">
+      <button onClick={init} className="mt-6 font-mono text-xs uppercase tracking-wider text-primary border border-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground">
         [ reset ]
       </button>
-    </PageShell>
+    </div>
   );
 }

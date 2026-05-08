@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { PageShell } from "@/components/portfolio/PageShell";
 
 type W = { city: string; temp: number | null; cond: string };
 
@@ -17,7 +16,7 @@ const CODE: Record<number, string> = {
   45: "Fog", 51: "Drizzle", 61: "Rain", 71: "Snow", 80: "Showers", 95: "Thunder",
 };
 
-export default function Weather() {
+export default function WeatherApp() {
   const [data, setData] = useState<W[]>(CITIES.map((c) => ({ city: c.name, temp: null, cond: "…" })));
 
   useEffect(() => {
@@ -33,19 +32,19 @@ export default function Weather() {
   }, []);
 
   return (
-    <PageShell label="tools/weather" title="Nepal Weather">
+    <div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
         {data.map((d) => (
-          <div key={d.city} className="bg-card p-6">
+          <div key={d.city} className="bg-card p-5">
             <p className="font-mono text-xs text-muted-foreground">{d.city}</p>
-            <p className="text-4xl font-bold mt-2 text-primary">
+            <p className="text-3xl font-bold mt-1 text-primary">
               {d.temp !== null ? `${Math.round(d.temp)}°C` : "—"}
             </p>
-            <p className="font-mono text-xs mt-2">{d.cond}</p>
+            <p className="font-mono text-xs mt-1">{d.cond}</p>
           </div>
         ))}
       </div>
-      <p className="font-mono text-xs text-muted-foreground mt-6">Live data from open-meteo.com</p>
-    </PageShell>
+      <p className="font-mono text-xs text-muted-foreground mt-4">Live data from open-meteo.com</p>
+    </div>
   );
 }

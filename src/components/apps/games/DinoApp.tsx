@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { PageShell } from "@/components/portfolio/PageShell";
 
-export default function Dino() {
+export default function DinoApp() {
   const [y, setY] = useState(0);
   const [obs, setObs] = useState(400);
   const [score, setScore] = useState(0);
@@ -12,7 +11,7 @@ export default function Dino() {
   const jump = () => { if (yRef.current === 0 && !over) vel.current = 12; };
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.code === "Space") jump(); };
+    const onKey = (e: KeyboardEvent) => { if (e.code === "Space") { e.preventDefault(); jump(); } };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
@@ -38,27 +37,18 @@ export default function Dino() {
   const reset = () => { yRef.current = 0; vel.current = 0; setY(0); setObs(400); setScore(0); setOver(false); };
 
   return (
-    <PageShell label="games/dino" title="Dino Runner">
-      <p className="font-mono text-sm text-muted-foreground mb-6">
-        Score: {score} {over && "— Game Over"} · Press Space / tap to jump
+    <div>
+      <p className="font-mono text-sm text-muted-foreground mb-4">
+        Score: {score} {over && "— Game Over"} · Space / tap to jump
       </p>
-      <div
-        onClick={jump}
-        className="relative bg-card border border-border h-48 w-full max-w-2xl cursor-pointer overflow-hidden"
-      >
+      <div onClick={jump} className="relative bg-card border border-border h-40 w-full cursor-pointer overflow-hidden">
         <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
-        <div
-          className="absolute left-12 w-8 h-8 bg-primary"
-          style={{ bottom: y }}
-        />
-        <div
-          className="absolute bottom-0 w-6 h-10 bg-accent"
-          style={{ left: obs }}
-        />
+        <div className="absolute left-12 w-8 h-8 bg-primary" style={{ bottom: y }} />
+        <div className="absolute bottom-0 w-6 h-10 bg-accent" style={{ left: obs }} />
       </div>
-      <button onClick={reset} className="mt-6 font-mono text-xs uppercase tracking-wider text-primary border border-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors">
+      <button onClick={reset} className="mt-6 font-mono text-xs uppercase tracking-wider text-primary border border-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground">
         [ reset ]
       </button>
-    </PageShell>
+    </div>
   );
 }

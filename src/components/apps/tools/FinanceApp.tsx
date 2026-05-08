@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { PageShell } from "@/components/portfolio/PageShell";
 
 const RATES: Record<string, number> = {
   USD: 133.5, EUR: 145.2, GBP: 169.8, INR: 1.6, AUD: 86.5, JPY: 0.86, CNY: 18.4, AED: 36.4,
@@ -13,40 +12,32 @@ const NEPSE_SAMPLE = [
   { ticker: "CHCL", name: "Chilime Hydropower", price: 525, change: -1.0 },
 ];
 
-export default function Finance() {
+export default function FinanceApp() {
   const [amount, setAmount] = useState("100");
   const [from, setFrom] = useState("USD");
   const npr = useMemo(() => (parseFloat(amount) || 0) * RATES[from], [amount, from]);
 
   return (
-    <PageShell label="tools/finance" title="Finance & Markets">
-      <h2 className="font-mono text-xs uppercase tracking-wider text-primary mb-4">Forex (NPR)</h2>
-      <div className="grid sm:grid-cols-3 gap-3 mb-6">
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="bg-card border border-border px-4 py-3 font-mono"
-        />
-        <select
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
-          className="bg-card border border-border px-4 py-3 font-mono"
-        >
+    <div>
+      <h3 className="font-mono text-xs uppercase tracking-wider text-primary mb-3">Forex (NPR)</h3>
+      <div className="grid sm:grid-cols-3 gap-3 mb-4">
+        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)}
+          className="bg-card border border-border px-3 py-2 font-mono" />
+        <select value={from} onChange={(e) => setFrom(e.target.value)}
+          className="bg-card border border-border px-3 py-2 font-mono">
           {Object.keys(RATES).map((k) => <option key={k}>{k}</option>)}
         </select>
-        <div className="bg-card border border-border px-4 py-3 font-mono">
+        <div className="bg-card border border-border px-3 py-2 font-mono">
           = NPR {npr.toLocaleString(undefined, { maximumFractionDigits: 2 })}
         </div>
       </div>
-      <p className="font-mono text-xs text-muted-foreground mb-12">Indicative rates. Verify with NRB.</p>
 
-      <h2 className="font-mono text-xs uppercase tracking-wider text-primary mb-4">NEPSE snapshot</h2>
-      <table className="w-full font-mono text-sm">
+      <h3 className="font-mono text-xs uppercase tracking-wider text-primary mb-3 mt-6">NEPSE snapshot</h3>
+      <table className="w-full font-mono text-xs">
         <thead>
           <tr className="text-left text-muted-foreground border-b border-border">
             <th className="py-2">Ticker</th><th>Name</th>
-            <th className="text-right">Price</th><th className="text-right">Change %</th>
+            <th className="text-right">Price</th><th className="text-right">%</th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +53,6 @@ export default function Finance() {
           ))}
         </tbody>
       </table>
-      <p className="font-mono text-xs text-muted-foreground mt-3">Sample data for demo.</p>
-    </PageShell>
+    </div>
   );
 }
