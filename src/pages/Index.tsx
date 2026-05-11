@@ -6,6 +6,7 @@ import { Tools } from "@/components/portfolio/Tools";
 import { Games } from "@/components/portfolio/Games";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
+import { PetCat } from "@/components/portfolio/PetCat";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <Games />
       <Contact />
       <Footer />
+      <PetCat />
     </main>
   );
 };
