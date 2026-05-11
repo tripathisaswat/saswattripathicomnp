@@ -71,7 +71,7 @@ export const Experience = () => {
           A 7-year climb. Click any milestone to revisit the chapter.
         </p>
 
-        {/* Progress bar */}
+        {/* Progress bar with running person */}
         <div className="mb-2 flex justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           <span>Entry</span>
           <span>Junior</span>
@@ -79,11 +79,29 @@ export const Experience = () => {
           <span>Senior</span>
           <span className="text-primary">Lead</span>
         </div>
-        <div className="h-1 bg-border relative mb-8">
+        <div className="relative mb-14 pt-10">
+          {/* Runner */}
           <div
-            className="h-full bg-primary transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
+            key={`runner-${active}`}
+            className="absolute -top-2 -translate-x-1/2 transition-all duration-700 ease-out text-3xl select-none"
+            style={{ left: `${progress}%` }}
+          >
+            <div className="relative flex flex-col items-center">
+              <span className="animate-bounce inline-block" style={{ animationDuration: "0.6s" }}>
+                🎉
+              </span>
+              <span className="absolute -bottom-1 text-[9px] font-mono uppercase tracking-widest text-primary whitespace-nowrap">
+                Level up!
+              </span>
+            </div>
+          </div>
+          {/* Track */}
+          <div className="h-1 bg-border relative overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-primary/60 to-primary transition-all duration-700 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
 
         {/* Timeline dots */}
