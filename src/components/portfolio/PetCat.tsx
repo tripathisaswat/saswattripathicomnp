@@ -22,29 +22,19 @@ const ensureStyle = () => {
     }
     .tj-shake { animation: tj-shake 0.45s ease-in-out; }
     @keyframes tj-pop { 0% { transform: translate(-50%,-50%) scale(0); opacity: 1; } 100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; } }
-    @keyframes tj-body { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-2px) rotate(0); } }
-    .tj-body { animation: tj-body 0.22s ease-in-out infinite; transform-origin: 50% 70%; }
-    .tj-body-slow { animation: tj-body 0.32s ease-in-out infinite; transform-origin: 50% 70%; }
+    /* unified rhythm: --tj-step controls every limb + body sway */
+    @keyframes tj-body { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-3px) rotate(-2deg);} 50% { transform: translateY(0) rotate(0);} 75% { transform: translateY(-3px) rotate(2deg);} }
+    .tj-body { animation: tj-body var(--tj-step) ease-in-out infinite; transform-origin: 50% 70%; }
 
-    /* feet: alternate up/down */
-    @keyframes tj-foot-a { 0%,100% { transform: translateY(0) rotate(-10deg);} 50% { transform: translateY(-6px) rotate(20deg);} }
-    @keyframes tj-foot-b { 0%,100% { transform: translateY(-6px) rotate(20deg);} 50% { transform: translateY(0) rotate(-10deg);} }
-    .tj-foot-l { animation: tj-foot-a 0.22s linear infinite; transform-origin: 50% 0%; }
-    .tj-foot-r { animation: tj-foot-b 0.22s linear infinite; transform-origin: 50% 0%; }
-    .tj-foot-l-slow { animation: tj-foot-a 0.32s linear infinite; transform-origin: 50% 0%; }
-    .tj-foot-r-slow { animation: tj-foot-b 0.32s linear infinite; transform-origin: 50% 0%; }
+    @keyframes tj-foot-a { 0%,100% { transform: translateY(0) rotate(-15deg);} 50% { transform: translateY(-7px) rotate(25deg);} }
+    @keyframes tj-foot-b { 0%,100% { transform: translateY(-7px) rotate(25deg);} 50% { transform: translateY(0) rotate(-15deg);} }
+    .tj-foot-l { animation: tj-foot-a var(--tj-step) ease-in-out infinite; transform-origin: 50% 0%; }
+    .tj-foot-r { animation: tj-foot-b var(--tj-step) ease-in-out infinite; transform-origin: 50% 0%; }
 
-    /* hands swing opposite to feet */
-    @keyframes tj-hand-a { 0%,100% { transform: rotate(35deg);} 50% { transform: rotate(-35deg);} }
-    @keyframes tj-hand-b { 0%,100% { transform: rotate(-35deg);} 50% { transform: rotate(35deg);} }
-    .tj-hand-l { animation: tj-hand-a 0.22s linear infinite; transform-origin: 50% 0%; }
-    .tj-hand-r { animation: tj-hand-b 0.22s linear infinite; transform-origin: 50% 0%; }
-    .tj-hand-l-slow { animation: tj-hand-a 0.32s linear infinite; transform-origin: 50% 0%; }
-    .tj-hand-r-slow { animation: tj-hand-b 0.32s linear infinite; transform-origin: 50% 0%; }
-
-    /* dust puff behind feet */
-    @keyframes tj-dust { 0% { transform: scale(0.4); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
-    .tj-dust { animation: tj-dust 0.5s ease-out infinite; }
+    @keyframes tj-hand-a { 0%,100% { transform: rotate(40deg);} 50% { transform: rotate(-40deg);} }
+    @keyframes tj-hand-b { 0%,100% { transform: rotate(-40deg);} 50% { transform: rotate(40deg);} }
+    .tj-hand-l { animation: tj-hand-a var(--tj-step) ease-in-out infinite; transform-origin: 50% 0%; }
+    .tj-hand-r { animation: tj-hand-b var(--tj-step) ease-in-out infinite; transform-origin: 50% 0%; }
   `;
   document.head.appendChild(s);
 };
@@ -125,7 +115,7 @@ export const PetCat = () => {
           return j;
         }
         // Jerry is FAST and slippery
-        const speed = 8;
+        const speed = 4.5;
         // add a little zig-zag perpendicular jitter
         const perp = Math.sin(Date.now() / 80) * 1.2;
         const ux = dx / dist;
@@ -142,7 +132,7 @@ export const PetCat = () => {
           setPhase("caught");
           return t;
         }
-        const speed = 3.2;
+        const speed = 2.2;
         const nx = t.x + (dx / dist) * speed;
         const ny = t.y + (dy / dist) * speed;
         return { x: nx, y: ny };
@@ -286,12 +276,12 @@ const Sprite = ({
   runFast: boolean;
   limbColor: string;
 }) => {
-  const fast = runFast;
-  const footL = running ? (fast ? "tj-foot-l" : "tj-foot-l-slow") : "";
-  const footR = running ? (fast ? "tj-foot-r" : "tj-foot-r-slow") : "";
-  const handL = running ? (fast ? "tj-hand-l" : "tj-hand-l-slow") : "";
-  const handR = running ? (fast ? "tj-hand-r" : "tj-hand-r-slow") : "";
-  const bodyAnim = running ? (fast ? "tj-body" : "tj-body-slow") : "";
+  const step = runFast ? "0.5s" : "0.65s";
+  const footL = running ? "tj-foot-l" : "";
+  const footR = running ? "tj-foot-r" : "";
+  const handL = running ? "tj-hand-l" : "";
+  const handR = running ? "tj-hand-r" : "";
+  const bodyAnim = running ? "tj-body" : "";
   const footW = Math.max(8, size * 0.18);
   const footH = Math.max(5, size * 0.1);
   const handW = Math.max(7, size * 0.14);
@@ -311,7 +301,7 @@ const Sprite = ({
       <button
         onClick={onClick}
         className="pointer-events-auto block hover:scale-110 transition-transform relative"
-        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size }}
+        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size, ["--tj-step" as string]: step }}
       >
         {/* hands (behind body) */}
         <span
