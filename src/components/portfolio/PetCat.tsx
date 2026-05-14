@@ -6,7 +6,7 @@ type Phase = "chase" | "caught" | "escape";
 
 const SPRITE = 72; // px
 
-// inject shake keyframes once
+// inject keyframes once
 const STYLE_ID = "tj-shake-style";
 const ensureStyle = () => {
   if (typeof document === "undefined") return;
@@ -16,13 +16,15 @@ const ensureStyle = () => {
   s.textContent = `
     @keyframes tj-shake {
       0%,100% { transform: translate(0,0) rotate(0); }
-      20% { transform: translate(-4px,2px) rotate(-2deg); }
-      40% { transform: translate(4px,-2px) rotate(2deg); }
-      60% { transform: translate(-3px,-2px) rotate(-1deg); }
-      80% { transform: translate(3px,2px) rotate(1deg); }
+      25% { transform: translate(-5px,2px) rotate(-2deg); }
+      50% { transform: translate(5px,-2px) rotate(2deg); }
+      75% { transform: translate(-3px,-2px) rotate(-1deg); }
     }
-    .tj-shake { animation: tj-shake 0.5s ease-in-out; }
-    @keyframes tj-pop { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+    .tj-shake { animation: tj-shake 0.45s ease-in-out; }
+    @keyframes tj-pop { 0% { transform: translate(-50%,-50%) scale(0); opacity: 1; } 100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; } }
+    @keyframes tj-run { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-3px) rotate(-3deg);} 50% { transform: translateY(0) rotate(0);} 75% { transform: translateY(-3px) rotate(3deg);} }
+    .tj-run { animation: tj-run 0.18s linear infinite; transform-origin: 50% 60%; }
+    .tj-run-slow { animation: tj-run 0.28s linear infinite; transform-origin: 50% 60%; }
   `;
   document.head.appendChild(s);
 };
@@ -35,44 +37,56 @@ const randomTarget = () => {
   };
 };
 
+// pick a target far away from a point
+const evasiveTarget = (from: { x: number; y: number }) => {
+  let best = randomTarget();
+  let bestDist = 0;
+  for (let i = 0; i < 5; i++) {
+    const t = randomTarget();
+    const d = Math.hypot(t.x - from.x, t.y - from.y);
+    if (d > bestDist) {
+      bestDist = d;
+      best = t;
+    }
+  }
+  return best;
+};
+
 export const PetCat = () => {
   const [hidden, setHidden] = useState(false);
   const [phase, setPhase] = useState<Phase>("chase");
   const [tom, setTom] = useState({ x: 100, y: 400 });
-  const [jerry, setJerry] = useState({ x: 300, y: 400 });
+  const [jerry, setJerry] = useState({ x: 600, y: 400 });
   const [bubble, setBubble] = useState<{ who: "tom" | "jerry"; text: string } | null>(null);
   const [boom, setBoom] = useState<{ x: number; y: number; id: number } | null>(null);
-  const jerryTarget = useRef(randomTarget());
-  const lastShake = useRef(0);
+  const jerryTarget = useRef({ x: 600, y: 400 });
+  const tomRef = useRef(tom);
+  tomRef.current = tom;
 
   useEffect(() => {
     ensureStyle();
   }, []);
 
-  // Jerry picks new targets
+  // Jerry picks new evasive targets very frequently
   useEffect(() => {
     if (phase !== "chase") return;
     const id = setInterval(() => {
-      jerryTarget.current = randomTarget();
-    }, 2200);
+      jerryTarget.current = evasiveTarget(tomRef.current);
+    }, 700);
     return () => clearInterval(id);
   }, [phase]);
 
-  // shake an element under a point (avoid the pets themselves & nav)
-  const shakeUnder = useCallback((x: number, y: number) => {
-    const now = Date.now();
-    if (now - lastShake.current < 250) return;
+  // shake an element ONLY at a specific point (used for boom)
+  const shakeAt = useCallback((x: number, y: number) => {
     const els = document.elementsFromPoint(x, y);
     for (const el of els) {
       if (!(el instanceof HTMLElement)) continue;
       if (el.closest("[data-pet]")) continue;
-      // pick a meaningful target: heading, paragraph, button, list item, card-ish block
       const target = el.closest("h1,h2,h3,h4,p,li,button,article,a") as HTMLElement | null;
       if (!target) continue;
       if (target.classList.contains("tj-shake")) return;
       target.classList.add("tj-shake");
-      setTimeout(() => target.classList.remove("tj-shake"), 550);
-      lastShake.current = now;
+      setTimeout(() => target.classList.remove("tj-shake"), 500);
       return;
     }
   }, []);
@@ -86,59 +100,64 @@ export const PetCat = () => {
         const dx = jerryTarget.current.x - j.x;
         const dy = jerryTarget.current.y - j.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 4) return j;
-        const speed = 3.5;
-        const nx = j.x + (dx / dist) * speed;
-        const ny = j.y + (dy / dist) * speed;
-        shakeUnder(nx, ny);
+        if (dist < 6) {
+          jerryTarget.current = evasiveTarget(tomRef.current);
+          return j;
+        }
+        // Jerry is FAST and slippery
+        const speed = 8;
+        // add a little zig-zag perpendicular jitter
+        const perp = Math.sin(Date.now() / 80) * 1.2;
+        const ux = dx / dist;
+        const uy = dy / dist;
+        const nx = j.x + ux * speed + -uy * perp;
+        const ny = j.y + uy * speed + ux * perp;
         return { x: nx, y: ny };
       });
       setTom((t) => {
         const dx = jerry.x - t.x;
         const dy = jerry.y - t.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 30) {
+        if (dist < 28) {
           setPhase("caught");
           return t;
         }
-        const speed = 2.8;
+        const speed = 3.2;
         const nx = t.x + (dx / dist) * speed;
         const ny = t.y + (dy / dist) * speed;
-        shakeUnder(nx, ny);
         return { x: nx, y: ny };
       });
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [phase, jerry.x, jerry.y, shakeUnder]);
+  }, [phase, jerry.x, jerry.y]);
 
   // caught -> escape
   useEffect(() => {
     if (phase !== "caught") return;
     setBubble({ who: "tom", text: "Gotcha!" });
     setBoom({ x: jerry.x, y: jerry.y, id: Date.now() });
+    shakeAt(jerry.x, jerry.y);
     const t1 = setTimeout(() => {
       setBubble({ who: "jerry", text: "Bye bye! 🧀" });
       setPhase("escape");
-    }, 800);
+    }, 700);
     return () => clearTimeout(t1);
-  }, [phase, jerry.x, jerry.y]);
+  }, [phase, jerry.x, jerry.y, shakeAt]);
 
   useEffect(() => {
     if (phase !== "escape") return;
     const t = setTimeout(() => {
-      const next = randomTarget();
-      // teleport jerry far from tom
       setJerry({
         x: tom.x > window.innerWidth / 2 ? 60 : window.innerWidth - 60,
         y: 60 + Math.random() * (window.innerHeight - 120),
       });
-      jerryTarget.current = next;
+      jerryTarget.current = evasiveTarget(tomRef.current);
       setBubble(null);
       setBoom(null);
       setPhase("chase");
-    }, 700);
+    }, 600);
     return () => clearTimeout(t);
   }, [phase, tom.x]);
 
@@ -158,7 +177,6 @@ export const PetCat = () => {
 
   return (
     <div data-pet className="pointer-events-none">
-      {/* hide button */}
       <button
         onClick={() => setHidden(true)}
         className="pointer-events-auto fixed bottom-4 left-4 z-[60] font-mono text-[10px] uppercase tracking-wider bg-card border border-border px-2 py-1 hover:border-destructive hover:text-destructive text-muted-foreground"
@@ -166,7 +184,6 @@ export const PetCat = () => {
         × stop chase
       </button>
 
-      {/* boom */}
       {boom && (
         <div
           key={boom.id}
@@ -174,7 +191,6 @@ export const PetCat = () => {
           style={{
             left: boom.x,
             top: boom.y,
-            transform: "translate(-50%,-50%)",
             animation: "tj-pop 0.7s ease-out forwards",
           }}
         >
@@ -182,25 +198,24 @@ export const PetCat = () => {
         </div>
       )}
 
-      {/* Jerry */}
       <Sprite
         src={jerryImg}
         x={jerry.x}
         y={jerry.y}
         dir={jerryDir}
-        size={SPRITE * 0.75}
+        size={SPRITE * 0.7}
         bubble={bubble?.who === "jerry" ? bubble.text : null}
         bubbleClass="bg-accent text-accent-foreground"
+        running={phase === "chase"}
+        runFast
         onClick={() => {
-          const lines = ["Squeak!", "Catch me!", "Too slow!", "Hehe!"];
+          const lines = ["Squeak!", "Catch me!", "Too slow!", "Hehe!", "Nope!"];
           setBubble({ who: "jerry", text: lines[Math.floor(Math.random() * lines.length)] });
-          jerryTarget.current = randomTarget();
-          setTimeout(() => setBubble(null), 1200);
+          jerryTarget.current = evasiveTarget(tomRef.current);
+          setTimeout(() => setBubble(null), 1000);
         }}
-        smooth={phase === "escape"}
       />
 
-      {/* Tom */}
       <Sprite
         src={tomImg}
         x={tom.x}
@@ -209,16 +224,16 @@ export const PetCat = () => {
         size={SPRITE}
         bubble={bubble?.who === "tom" ? bubble.text : null}
         bubbleClass="bg-primary text-primary-foreground"
+        running={phase === "chase"}
+        runFast={false}
         onClick={() => {
           setBubble({ who: "tom", text: "Rawr! 💨" });
-          // teleport tom closer to jerry
           setTom({
             x: jerry.x - 80 * (jerry.x > tom.x ? 1 : -1),
             y: jerry.y,
           });
-          setTimeout(() => setBubble(null), 900);
+          setTimeout(() => setBubble(null), 800);
         }}
-        smooth={false}
       />
     </div>
   );
@@ -233,7 +248,8 @@ const Sprite = ({
   bubble,
   bubbleClass,
   onClick,
-  smooth,
+  running,
+  runFast,
 }: {
   src: string;
   x: number;
@@ -243,7 +259,8 @@ const Sprite = ({
   bubble: string | null;
   bubbleClass: string;
   onClick: () => void;
-  smooth: boolean;
+  running: boolean;
+  runFast: boolean;
 }) => (
   <div
     className="fixed z-[55] pointer-events-none"
@@ -251,7 +268,6 @@ const Sprite = ({
       left: x,
       top: y,
       transform: `translate(-50%,-50%)`,
-      transition: smooth ? "left 0.5s ease-out, top 0.5s ease-out" : "none",
     }}
   >
     {bubble && (
@@ -272,7 +288,7 @@ const Sprite = ({
         width={size}
         height={size}
         style={{ width: size, height: size }}
-        className="select-none drop-shadow-lg"
+        className={`select-none drop-shadow-lg ${running ? (runFast ? "tj-run" : "tj-run-slow") : ""}`}
         draggable={false}
       />
     </button>
