@@ -247,6 +247,7 @@ export const PetCat = () => {
         bubbleClass="bg-primary text-primary-foreground"
         running={phase === "chase"}
         runFast={false}
+        limbColor="#5C5C5C"
         onClick={() => {
           setBubble({ who: "tom", text: "Rawr! 💨" });
           setTom({
