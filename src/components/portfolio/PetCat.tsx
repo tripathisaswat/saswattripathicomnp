@@ -270,6 +270,7 @@ const Sprite = ({
   onClick,
   running,
   runFast,
+  limbColor,
 }: {
   src: string;
   x: number;
@@ -281,36 +282,104 @@ const Sprite = ({
   onClick: () => void;
   running: boolean;
   runFast: boolean;
-}) => (
-  <div
-    className="fixed z-[55] pointer-events-none"
-    style={{
-      left: x,
-      top: y,
-      transform: `translate(-50%,-50%)`,
-    }}
-  >
-    {bubble && (
-      <div
-        className={`absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-sm ${bubbleClass}`}
-      >
-        {bubble}
-      </div>
-    )}
-    <button
-      onClick={onClick}
-      className="pointer-events-auto block hover:scale-110 transition-transform"
-      style={{ transform: `scaleX(${dir === 1 ? 1 : -1})` }}
+  limbColor: string;
+}) => {
+  const fast = runFast;
+  const footL = running ? (fast ? "tj-foot-l" : "tj-foot-l-slow") : "";
+  const footR = running ? (fast ? "tj-foot-r" : "tj-foot-r-slow") : "";
+  const handL = running ? (fast ? "tj-hand-l" : "tj-hand-l-slow") : "";
+  const handR = running ? (fast ? "tj-hand-r" : "tj-hand-r-slow") : "";
+  const bodyAnim = running ? (fast ? "tj-body" : "tj-body-slow") : "";
+  const footW = Math.max(8, size * 0.18);
+  const footH = Math.max(5, size * 0.1);
+  const handW = Math.max(7, size * 0.14);
+  const handH = Math.max(10, size * 0.22);
+  return (
+    <div
+      className="fixed z-[55] pointer-events-none"
+      style={{ left: x, top: y, transform: `translate(-50%,-50%)` }}
     >
-      <img
-        src={src}
-        alt=""
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-        className={`select-none drop-shadow-lg ${running ? (runFast ? "tj-run" : "tj-run-slow") : ""}`}
-        draggable={false}
-      />
-    </button>
-  </div>
-);
+      {bubble && (
+        <div
+          className={`absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-sm ${bubbleClass}`}
+        >
+          {bubble}
+        </div>
+      )}
+      <button
+        onClick={onClick}
+        className="pointer-events-auto block hover:scale-110 transition-transform relative"
+        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size }}
+      >
+        {/* hands (behind body) */}
+        <span
+          className={handL}
+          style={{
+            position: "absolute",
+            left: size * 0.12,
+            top: size * 0.45,
+            width: handW,
+            height: handH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 0,
+          }}
+        />
+        <span
+          className={handR}
+          style={{
+            position: "absolute",
+            right: size * 0.12,
+            top: size * 0.45,
+            width: handW,
+            height: handH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 0,
+          }}
+        />
+        {/* body */}
+        <img
+          src={src}
+          alt=""
+          width={size}
+          height={size}
+          style={{ width: size, height: size, position: "relative", zIndex: 1 }}
+          className={`select-none drop-shadow-lg ${bodyAnim}`}
+          draggable={false}
+        />
+        {/* feet */}
+        <span
+          className={footL}
+          style={{
+            position: "absolute",
+            left: size * 0.28,
+            top: size * 0.88,
+            width: footW,
+            height: footH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 2,
+          }}
+        />
+        <span
+          className={footR}
+          style={{
+            position: "absolute",
+            right: size * 0.28,
+            top: size * 0.88,
+            width: footW,
+            height: footH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 2,
+          }}
+        />
+      </button>
+    </div>
+  );
+};
