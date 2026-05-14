@@ -22,9 +22,29 @@ const ensureStyle = () => {
     }
     .tj-shake { animation: tj-shake 0.45s ease-in-out; }
     @keyframes tj-pop { 0% { transform: translate(-50%,-50%) scale(0); opacity: 1; } 100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; } }
-    @keyframes tj-run { 0%,100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(-3px) rotate(-3deg);} 50% { transform: translateY(0) rotate(0);} 75% { transform: translateY(-3px) rotate(3deg);} }
-    .tj-run { animation: tj-run 0.18s linear infinite; transform-origin: 50% 60%; }
-    .tj-run-slow { animation: tj-run 0.28s linear infinite; transform-origin: 50% 60%; }
+    @keyframes tj-body { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-2px) rotate(0); } }
+    .tj-body { animation: tj-body 0.22s ease-in-out infinite; transform-origin: 50% 70%; }
+    .tj-body-slow { animation: tj-body 0.32s ease-in-out infinite; transform-origin: 50% 70%; }
+
+    /* feet: alternate up/down */
+    @keyframes tj-foot-a { 0%,100% { transform: translateY(0) rotate(-10deg);} 50% { transform: translateY(-6px) rotate(20deg);} }
+    @keyframes tj-foot-b { 0%,100% { transform: translateY(-6px) rotate(20deg);} 50% { transform: translateY(0) rotate(-10deg);} }
+    .tj-foot-l { animation: tj-foot-a 0.22s linear infinite; transform-origin: 50% 0%; }
+    .tj-foot-r { animation: tj-foot-b 0.22s linear infinite; transform-origin: 50% 0%; }
+    .tj-foot-l-slow { animation: tj-foot-a 0.32s linear infinite; transform-origin: 50% 0%; }
+    .tj-foot-r-slow { animation: tj-foot-b 0.32s linear infinite; transform-origin: 50% 0%; }
+
+    /* hands swing opposite to feet */
+    @keyframes tj-hand-a { 0%,100% { transform: rotate(35deg);} 50% { transform: rotate(-35deg);} }
+    @keyframes tj-hand-b { 0%,100% { transform: rotate(-35deg);} 50% { transform: rotate(35deg);} }
+    .tj-hand-l { animation: tj-hand-a 0.22s linear infinite; transform-origin: 50% 0%; }
+    .tj-hand-r { animation: tj-hand-b 0.22s linear infinite; transform-origin: 50% 0%; }
+    .tj-hand-l-slow { animation: tj-hand-a 0.32s linear infinite; transform-origin: 50% 0%; }
+    .tj-hand-r-slow { animation: tj-hand-b 0.32s linear infinite; transform-origin: 50% 0%; }
+
+    /* dust puff behind feet */
+    @keyframes tj-dust { 0% { transform: scale(0.4); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
+    .tj-dust { animation: tj-dust 0.5s ease-out infinite; }
   `;
   document.head.appendChild(s);
 };
@@ -208,6 +228,7 @@ export const PetCat = () => {
         bubbleClass="bg-accent text-accent-foreground"
         running={phase === "chase"}
         runFast
+        limbColor="#8B5A2B"
         onClick={() => {
           const lines = ["Squeak!", "Catch me!", "Too slow!", "Hehe!", "Nope!"];
           setBubble({ who: "jerry", text: lines[Math.floor(Math.random() * lines.length)] });
@@ -226,6 +247,7 @@ export const PetCat = () => {
         bubbleClass="bg-primary text-primary-foreground"
         running={phase === "chase"}
         runFast={false}
+        limbColor="#5C5C5C"
         onClick={() => {
           setBubble({ who: "tom", text: "Rawr! 💨" });
           setTom({
@@ -250,6 +272,7 @@ const Sprite = ({
   onClick,
   running,
   runFast,
+  limbColor,
 }: {
   src: string;
   x: number;
@@ -261,36 +284,104 @@ const Sprite = ({
   onClick: () => void;
   running: boolean;
   runFast: boolean;
-}) => (
-  <div
-    className="fixed z-[55] pointer-events-none"
-    style={{
-      left: x,
-      top: y,
-      transform: `translate(-50%,-50%)`,
-    }}
-  >
-    {bubble && (
-      <div
-        className={`absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-sm ${bubbleClass}`}
-      >
-        {bubble}
-      </div>
-    )}
-    <button
-      onClick={onClick}
-      className="pointer-events-auto block hover:scale-110 transition-transform"
-      style={{ transform: `scaleX(${dir === 1 ? 1 : -1})` }}
+  limbColor: string;
+}) => {
+  const fast = runFast;
+  const footL = running ? (fast ? "tj-foot-l" : "tj-foot-l-slow") : "";
+  const footR = running ? (fast ? "tj-foot-r" : "tj-foot-r-slow") : "";
+  const handL = running ? (fast ? "tj-hand-l" : "tj-hand-l-slow") : "";
+  const handR = running ? (fast ? "tj-hand-r" : "tj-hand-r-slow") : "";
+  const bodyAnim = running ? (fast ? "tj-body" : "tj-body-slow") : "";
+  const footW = Math.max(8, size * 0.18);
+  const footH = Math.max(5, size * 0.1);
+  const handW = Math.max(7, size * 0.14);
+  const handH = Math.max(10, size * 0.22);
+  return (
+    <div
+      className="fixed z-[55] pointer-events-none"
+      style={{ left: x, top: y, transform: `translate(-50%,-50%)` }}
     >
-      <img
-        src={src}
-        alt=""
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-        className={`select-none drop-shadow-lg ${running ? (runFast ? "tj-run" : "tj-run-slow") : ""}`}
-        draggable={false}
-      />
-    </button>
-  </div>
-);
+      {bubble && (
+        <div
+          className={`absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-sm ${bubbleClass}`}
+        >
+          {bubble}
+        </div>
+      )}
+      <button
+        onClick={onClick}
+        className="pointer-events-auto block hover:scale-110 transition-transform relative"
+        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size }}
+      >
+        {/* hands (behind body) */}
+        <span
+          className={handL}
+          style={{
+            position: "absolute",
+            left: size * 0.12,
+            top: size * 0.45,
+            width: handW,
+            height: handH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 0,
+          }}
+        />
+        <span
+          className={handR}
+          style={{
+            position: "absolute",
+            right: size * 0.12,
+            top: size * 0.45,
+            width: handW,
+            height: handH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 0,
+          }}
+        />
+        {/* body */}
+        <img
+          src={src}
+          alt=""
+          width={size}
+          height={size}
+          style={{ width: size, height: size, position: "relative", zIndex: 1 }}
+          className={`select-none drop-shadow-lg ${bodyAnim}`}
+          draggable={false}
+        />
+        {/* feet */}
+        <span
+          className={footL}
+          style={{
+            position: "absolute",
+            left: size * 0.28,
+            top: size * 0.88,
+            width: footW,
+            height: footH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 2,
+          }}
+        />
+        <span
+          className={footR}
+          style={{
+            position: "absolute",
+            right: size * 0.28,
+            top: size * 0.88,
+            width: footW,
+            height: footH,
+            borderRadius: "9999px",
+            background: limbColor,
+            boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
+            zIndex: 2,
+          }}
+        />
+      </button>
+    </div>
+  );
+};
