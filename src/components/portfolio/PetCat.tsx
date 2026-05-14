@@ -228,6 +228,7 @@ export const PetCat = () => {
         bubbleClass="bg-accent text-accent-foreground"
         running={phase === "chase"}
         runFast
+        limbColor="#8B5A2B"
         onClick={() => {
           const lines = ["Squeak!", "Catch me!", "Too slow!", "Hehe!", "Nope!"];
           setBubble({ who: "jerry", text: lines[Math.floor(Math.random() * lines.length)] });
