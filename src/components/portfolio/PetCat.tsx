@@ -115,7 +115,7 @@ export const PetCat = () => {
           return j;
         }
         // Jerry is FAST and slippery
-        const speed = 8;
+        const speed = 4.5;
         // add a little zig-zag perpendicular jitter
         const perp = Math.sin(Date.now() / 80) * 1.2;
         const ux = dx / dist;
