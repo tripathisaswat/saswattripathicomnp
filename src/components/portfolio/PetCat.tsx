@@ -132,7 +132,7 @@ export const PetCat = () => {
           setPhase("caught");
           return t;
         }
-        const speed = 3.2;
+        const speed = 2.2;
         const nx = t.x + (dx / dist) * speed;
         const ny = t.y + (dy / dist) * speed;
         return { x: nx, y: ny };
