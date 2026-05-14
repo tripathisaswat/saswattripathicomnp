@@ -276,12 +276,12 @@ const Sprite = ({
   runFast: boolean;
   limbColor: string;
 }) => {
-  const fast = runFast;
-  const footL = running ? (fast ? "tj-foot-l" : "tj-foot-l-slow") : "";
-  const footR = running ? (fast ? "tj-foot-r" : "tj-foot-r-slow") : "";
-  const handL = running ? (fast ? "tj-hand-l" : "tj-hand-l-slow") : "";
-  const handR = running ? (fast ? "tj-hand-r" : "tj-hand-r-slow") : "";
-  const bodyAnim = running ? (fast ? "tj-body" : "tj-body-slow") : "";
+  const step = runFast ? "0.5s" : "0.65s";
+  const footL = running ? "tj-foot-l" : "";
+  const footR = running ? "tj-foot-r" : "";
+  const handL = running ? "tj-hand-l" : "";
+  const handR = running ? "tj-hand-r" : "";
+  const bodyAnim = running ? "tj-body" : "";
   const footW = Math.max(8, size * 0.18);
   const footH = Math.max(5, size * 0.1);
   const handW = Math.max(7, size * 0.14);
@@ -301,7 +301,7 @@ const Sprite = ({
       <button
         onClick={onClick}
         className="pointer-events-auto block hover:scale-110 transition-transform relative"
-        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size }}
+        style={{ transform: `scaleX(${dir === 1 ? 1 : -1})`, width: size, height: size, ["--tj-step" as string]: step }}
       >
         {/* hands (behind body) */}
         <span
