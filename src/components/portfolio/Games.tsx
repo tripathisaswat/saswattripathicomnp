@@ -5,8 +5,14 @@ import SnakeApp from "@/components/apps/games/SnakeApp";
 import ConnectDotsApp from "@/components/apps/games/ConnectDotsApp";
 import DinoApp from "@/components/apps/games/DinoApp";
 import MemoryApp from "@/components/apps/games/MemoryApp";
+import Game2048App from "@/components/apps/games/Game2048App";
+import MinesweeperApp from "@/components/apps/games/MinesweeperApp";
+import BreakoutApp from "@/components/apps/games/BreakoutApp";
 
 const games = [
+  { name: "2048", icon: "🔢", desc: "Merge the tiles", label: "games/2048", Comp: Game2048App },
+  { name: "Minesweeper", icon: "💣", desc: "Clear the field", label: "games/minesweeper", Comp: MinesweeperApp },
+  { name: "Breakout", icon: "🧱", desc: "Brick breaker", label: "games/breakout", Comp: BreakoutApp },
   { name: "Connect Four", icon: "🔴", desc: "Classic strategy", label: "games/connect-four", Comp: ConnectFourApp },
   { name: "Tic Tac Toe", icon: "❌", desc: "Traditional 3x3 grid", label: "games/tic-tac-toe", Comp: TicTacToeApp },
   { name: "Snake", icon: "🐍", desc: "Classic arcade", label: "games/snake", Comp: SnakeApp },
@@ -14,6 +20,7 @@ const games = [
   { name: "Dino Runner", icon: "🦕", desc: "Endless runner", label: "games/dino", Comp: DinoApp },
   { name: "Memory Match", icon: "🧠", desc: "Memory cards", label: "games/memory", Comp: MemoryApp },
 ];
+
 
 export const Games = () => (
   <section id="games" className="py-32 px-6 border-t border-border">
