@@ -138,14 +138,12 @@ for (const r of routes) {
 // SPA fallback shares the homepage shell
 fs.writeFileSync(path.join(dist, "404.html"), fs.readFileSync(path.join(dist, "index.html")));
 
-const today = new Date().toISOString().slice(0, 10);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${routes
   .map(
     (r) => `  <url>
-    <loc>${SITE_URL}${r.path === "/" ? "/" : r.path}</loc>
-    <lastmod>${today}</lastmod>
+    <loc>${SITE_URL}${r.path === "/" ? "/" : r.path}</loc>${r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : ""}
     <changefreq>${r.changefreq || "monthly"}</changefreq>
     <priority>${r.priority || "0.6"}</priority>
   </url>`
