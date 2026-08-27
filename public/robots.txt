@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
+# No crawl-blocking rules — every route is public and prerendered.
+
 Sitemap: https://www.saswattripathi.com.np/sitemap.xml

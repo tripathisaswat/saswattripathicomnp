@@ -15,17 +15,23 @@ export const Hero = () => (
       <div className="lg:col-span-7 space-y-8">
         <p className="section-label">welcome.init()</p>
 
-        <h1 className="font-sans text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.95] tracking-tight">
-          Hi, I'm{" "}
-          <span className="text-primary text-glow">Saswat</span>
+        <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight">
+          ERP systems, built for{" "}
+          <span className="text-primary">Nepal</span>
           <span className="text-primary">.</span>
         </h1>
 
-        <p className="font-mono text-sm sm:text-base text-muted-foreground max-w-xl">
-          <span className="text-primary">&gt;</span> Project Manager at Neosoftware. I lead
-          ERP teams, consult on software strategy, and build AI agents.{" "}
+        <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
+          I'm <span className="text-foreground">Saswat Tripathi</span> — Project Manager at
+          Neosoftware in Lalitpur. I lead ERP and HR/payroll software delivery, consult on
+          software strategy, and build AI agents that automate real business workflows.
+        </p>
+
+        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+          <span className="text-primary">&gt;</span> ERP · HR &amp; payroll · AI agents · consulting
           <span className="cursor-blink" />
         </p>
+
 
         <div className="flex flex-wrap gap-3">
           <a
@@ -91,10 +97,10 @@ export const Hero = () => (
             />
           </div>
           <div className="absolute -bottom-4 -left-4 bg-card border border-border px-4 py-2 font-mono text-xs">
-            <span className="text-primary">●</span> available for work
+            <span className="text-primary">●</span> available for consulting
           </div>
           <div className="absolute -top-4 -right-4 bg-card border border-border px-4 py-2 font-mono text-xs">
-            KTM, NP
+            Lalitpur, NP
           </div>
         </div>
       </div>

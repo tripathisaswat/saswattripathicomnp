@@ -21,8 +21,8 @@ export const About = () => (
   <section id="about" className="relative py-32 px-6 border-t border-border">
     <div className="max-w-7xl mx-auto">
       <p className="section-label mb-4">about.me</p>
-      <h2 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-bold mb-16 max-w-3xl">
-        Crafting digital experiences for the modern web<span className="text-primary">.</span>
+      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mb-16 max-w-3xl">
+        ERP, HR software and AI agents for Nepali businesses<span className="text-primary">.</span>
       </h2>
 
       <div className="grid lg:grid-cols-2 gap-12 mb-20">
@@ -60,7 +60,7 @@ export const About = () => (
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border mb-20">
         {stats.map((s) => (
           <div key={s.l} className="bg-background p-8">
-            <div className="font-sans text-4xl lg:text-5xl font-bold text-primary">{s.v}</div>
+            <div className="font-display text-4xl lg:text-5xl text-primary">{s.v}</div>
             <div className="font-mono text-xs uppercase tracking-wider text-muted-foreground mt-2">
               {s.l}
             </div>
@@ -73,7 +73,7 @@ export const About = () => (
           {[...skills, ...skills, ...skills].map((s, i) => (
             <span
               key={i}
-              className="font-mono text-2xl lg:text-4xl font-bold text-muted-foreground/40 mx-8"
+              className="font-mono text-2xl lg:text-4xl text-muted-foreground/40 mx-8"
             >
               {s} <span className="text-primary">/</span>
             </span>
