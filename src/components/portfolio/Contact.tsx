@@ -29,7 +29,7 @@ export const Contact = () => {
     <section id="contact" className="py-32 px-6 border-t border-border">
       <div className="max-w-7xl mx-auto">
         <p className="section-label mb-4">contact.init()</p>
-        <h2 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 max-w-3xl">
+        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mb-4 max-w-3xl">
           Let's work together<span className="text-primary">.</span>
         </h2>
         <p className="text-muted-foreground max-w-2xl mb-16">
