@@ -49,6 +49,8 @@ const posts = parse(section("export const POSTS")).map((p) => ({
   title: field(p.block, "metaTitle") || field(p.block, "title"),
   description: field(p.block, "description"),
   type: "article",
+  // authoritative, page-specific publish date from the post itself
+  lastmod: field(p.block, "date") || undefined,
   changefreq: "monthly",
   priority: "0.7",
 }));
