@@ -19,7 +19,7 @@ const Index = () => {
       <Games />
       <Contact />
       <Footer />
-      <PetCat />
+      <PetCat defaultHidden />
     </main>
   );
 };

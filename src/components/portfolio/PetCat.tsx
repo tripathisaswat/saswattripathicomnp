@@ -64,8 +64,8 @@ const evasiveTarget = (from: { x: number; y: number }) => {
   return best;
 };
 
-export const PetCat = () => {
-  const [hidden, setHidden] = useState(false);
+export const PetCat = ({ defaultHidden = false }: { defaultHidden?: boolean }) => {
+  const [hidden, setHidden] = useState(defaultHidden);
   const [phase, setPhase] = useState<Phase>("chase");
   const [tom, setTom] = useState({ x: 120, y: 420 });
   const [jerry, setJerry] = useState({ x: 620, y: 420 });
