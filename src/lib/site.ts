@@ -53,31 +53,6 @@ export const SERVICES: ServiceDef[] = [
     ],
   },
   {
-    slug: "hr-software",
-    nav: "HR Software",
-    title: "HR & Payroll Software Nepal — SSF, CIT, Leave & Attendance",
-    h1: "HR and payroll software built for Nepal",
-    description:
-      "HR software solutions for Nepal: payroll with Nepal tax slabs, SSF and CIT, attendance, leave, and employee self-service. Custom-built and integrated with your ERP.",
-    intro: [
-      "Most HR products sold in Nepal are either generic international tools that do not understand SSF, CIT and the Nepali fiscal year, or spreadsheets held together by one very patient person in accounts. I build HR and payroll systems that handle the local rules properly and connect to the rest of your finance stack.",
-      "The goal is simple: payroll runs in an afternoon instead of a week, and every deduction can be explained to an auditor.",
-    ],
-    bullets: [
-      { h: "Payroll engine", p: "Current Nepal income tax slabs, married/single status, SSF, CIT, PF, TDS, festival bonus and gratuity." },
-      { h: "Attendance", p: "Biometric and mobile check-in, shift rosters, overtime rules, late and half-day policies." },
-      { h: "Leave management", p: "Home, sick, casual and unpaid leave with carry-forward, encashment and approval chains." },
-      { h: "Employee self-service", p: "Payslips, tax certificates, leave requests and document access without HR being the middleman." },
-      { h: "Compliance reporting", p: "Salary sheets, SSF returns, TDS statements and annual tax certificates in the formats your filings need." },
-      { h: "Recruitment & records", p: "Applicant tracking, offer letters, contract expiry alerts, appraisal cycles." },
-    ],
-    faq: [
-      { q: "Does the payroll follow current Nepal tax rules?", a: "Yes. Slabs, SSF, CIT and TDS logic are configurable rather than hard-coded, so the system is updated each year when the budget changes the rates." },
-      { q: "Can it connect to our biometric attendance device?", a: "In most cases yes — the common devices used in Nepal expose either a local database or an API, and I integrate against that rather than asking staff to double-enter attendance." },
-      { q: "Is a ready-made HR product cheaper than custom?", a: "For a small team with standard needs, a subscription product is usually cheaper. Custom becomes worthwhile when you have unusual shift or bonus rules, multiple companies, or a need to feed payroll straight into your own accounting." },
-    ],
-  },
-  {
     slug: "freelance-software-development",
     nav: "Freelance Development",
     title: "Freelance Software Developer in Kathmandu, Nepal — Saswat Tripathi",
