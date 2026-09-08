@@ -28,7 +28,7 @@ export const Hero = () => (
         </p>
 
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
-          <span className="text-primary">&gt;</span> ERP · HR &amp; payroll · AI agents · consulting
+          <span className="text-primary">&gt;</span> ERP · AI agents · consulting
           <span className="cursor-blink" />
         </p>
 
