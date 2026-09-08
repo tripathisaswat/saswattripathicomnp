@@ -164,40 +164,6 @@ export const POSTS: PostDef[] = [
     ],
   },
   {
-    slug: "hr-payroll-software-nepal-comparison",
-    title: "Choosing HR and payroll software in Nepal",
-    metaTitle: "HR & Payroll Software in Nepal — How to Choose (2026 Guide)",
-    description:
-      "A practical comparison framework for HR and payroll software in Nepal: SSF and CIT handling, attendance devices, self-service, and when custom beats subscription.",
-    date: "2026-02-09",
-    readMins: 7,
-    tags: ["HR", "Payroll", "Nepal"],
-    body: [
-      { p: [
-        "Payroll in Nepal is not hard because of the maths. It is hard because the rules change annually, the deductions stack in a specific order, and one mistake affects every employee at once.",
-      ] },
-      { h: "The four questions that separate real products from brochures", ul: [
-        "Show me a payslip with SSF, CIT and TDS on the same employee, and explain the calculation order.",
-        "What happens when the budget changes tax slabs in the middle of a fiscal year?",
-        "How does a mid-month joiner, a mid-month leaver and an unpaid leave overlap get prorated?",
-        "Can an employee download their own annual tax certificate without emailing HR?",
-      ] },
-      { h: "Attendance is where most implementations stall", p: [
-        "Biometric devices in Nepal vary enormously. Before signing anything, confirm the exact device model and whether the software reads it directly, via export file, or not at all. 'We can integrate' is not the same as 'we have integrated this model'.",
-      ] },
-      { h: "Subscription vs custom", p: [
-        "Under roughly 50 employees with conventional shifts, a subscription product almost always wins on cost and time. Custom starts to pay off with multiple legal entities, unusual overtime or bonus schemes, factory shift patterns, or when payroll output must flow directly into your own ERP ledger without re-keying.",
-      ] },
-      { h: "The migration nobody plans for", p: [
-        "Opening balances. Leave carried forward, year-to-date tax already deducted, CIT contributions to date, gratuity accruals. Budget real time for this, and run one full month in parallel with your old process before switching off.",
-      ] },
-    ],
-    faq: [
-      { q: "Can HR software handle SSF and CIT together?", a: "It should. SSF and CIT are treated differently for tax relief, so the system must apply them in the correct order before computing taxable income — ask the vendor to demonstrate this on a real payslip." },
-      { q: "Should payroll live inside the ERP or separately?", a: "Inside, if your finance team wants salary journals posted automatically. Separately is acceptable when HR is fully independent and volumes are low." },
-    ],
-  },
-  {
     slug: "cost-of-custom-software-nepal",
     title: "What custom software actually costs in Nepal",
     metaTitle: "Cost of Custom Software Development in Nepal (2026 Breakdown)",
