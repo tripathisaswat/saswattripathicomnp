@@ -53,31 +53,6 @@ export const SERVICES: ServiceDef[] = [
     ],
   },
   {
-    slug: "hr-software",
-    nav: "HR Software",
-    title: "HR & Payroll Software Nepal — SSF, CIT, Leave & Attendance",
-    h1: "HR and payroll software built for Nepal",
-    description:
-      "HR software solutions for Nepal: payroll with Nepal tax slabs, SSF and CIT, attendance, leave, and employee self-service. Custom-built and integrated with your ERP.",
-    intro: [
-      "Most HR products sold in Nepal are either generic international tools that do not understand SSF, CIT and the Nepali fiscal year, or spreadsheets held together by one very patient person in accounts. I build HR and payroll systems that handle the local rules properly and connect to the rest of your finance stack.",
-      "The goal is simple: payroll runs in an afternoon instead of a week, and every deduction can be explained to an auditor.",
-    ],
-    bullets: [
-      { h: "Payroll engine", p: "Current Nepal income tax slabs, married/single status, SSF, CIT, PF, TDS, festival bonus and gratuity." },
-      { h: "Attendance", p: "Biometric and mobile check-in, shift rosters, overtime rules, late and half-day policies." },
-      { h: "Leave management", p: "Home, sick, casual and unpaid leave with carry-forward, encashment and approval chains." },
-      { h: "Employee self-service", p: "Payslips, tax certificates, leave requests and document access without HR being the middleman." },
-      { h: "Compliance reporting", p: "Salary sheets, SSF returns, TDS statements and annual tax certificates in the formats your filings need." },
-      { h: "Recruitment & records", p: "Applicant tracking, offer letters, contract expiry alerts, appraisal cycles." },
-    ],
-    faq: [
-      { q: "Does the payroll follow current Nepal tax rules?", a: "Yes. Slabs, SSF, CIT and TDS logic are configurable rather than hard-coded, so the system is updated each year when the budget changes the rates." },
-      { q: "Can it connect to our biometric attendance device?", a: "In most cases yes — the common devices used in Nepal expose either a local database or an API, and I integrate against that rather than asking staff to double-enter attendance." },
-      { q: "Is a ready-made HR product cheaper than custom?", a: "For a small team with standard needs, a subscription product is usually cheaper. Custom becomes worthwhile when you have unusual shift or bonus rules, multiple companies, or a need to feed payroll straight into your own accounting." },
-    ],
-  },
-  {
     slug: "freelance-software-development",
     nav: "Freelance Development",
     title: "Freelance Software Developer in Kathmandu, Nepal — Saswat Tripathi",
@@ -186,40 +161,6 @@ export const POSTS: PostDef[] = [
     faq: [
       { q: "How much should an SME in Nepal budget for ERP?", a: "For a small to mid-sized company, plan a total first-year cost in the mid to high six-figure NPR range for a configured or custom system, including migration and training. Subscription products can start much lower but grow with users and modules." },
       { q: "Is cloud ERP safe for a Nepali business?", a: "Yes, with two conditions: you hold your own admin credentials, and you have a tested, regularly restored database export. Connectivity is far less of an obstacle than it was five years ago." },
-    ],
-  },
-  {
-    slug: "hr-payroll-software-nepal-comparison",
-    title: "Choosing HR and payroll software in Nepal",
-    metaTitle: "HR & Payroll Software in Nepal — How to Choose (2026 Guide)",
-    description:
-      "A practical comparison framework for HR and payroll software in Nepal: SSF and CIT handling, attendance devices, self-service, and when custom beats subscription.",
-    date: "2026-02-09",
-    readMins: 7,
-    tags: ["HR", "Payroll", "Nepal"],
-    body: [
-      { p: [
-        "Payroll in Nepal is not hard because of the maths. It is hard because the rules change annually, the deductions stack in a specific order, and one mistake affects every employee at once.",
-      ] },
-      { h: "The four questions that separate real products from brochures", ul: [
-        "Show me a payslip with SSF, CIT and TDS on the same employee, and explain the calculation order.",
-        "What happens when the budget changes tax slabs in the middle of a fiscal year?",
-        "How does a mid-month joiner, a mid-month leaver and an unpaid leave overlap get prorated?",
-        "Can an employee download their own annual tax certificate without emailing HR?",
-      ] },
-      { h: "Attendance is where most implementations stall", p: [
-        "Biometric devices in Nepal vary enormously. Before signing anything, confirm the exact device model and whether the software reads it directly, via export file, or not at all. 'We can integrate' is not the same as 'we have integrated this model'.",
-      ] },
-      { h: "Subscription vs custom", p: [
-        "Under roughly 50 employees with conventional shifts, a subscription product almost always wins on cost and time. Custom starts to pay off with multiple legal entities, unusual overtime or bonus schemes, factory shift patterns, or when payroll output must flow directly into your own ERP ledger without re-keying.",
-      ] },
-      { h: "The migration nobody plans for", p: [
-        "Opening balances. Leave carried forward, year-to-date tax already deducted, CIT contributions to date, gratuity accruals. Budget real time for this, and run one full month in parallel with your old process before switching off.",
-      ] },
-    ],
-    faq: [
-      { q: "Can HR software handle SSF and CIT together?", a: "It should. SSF and CIT are treated differently for tax relief, so the system must apply them in the correct order before computing taxable income — ask the vendor to demonstrate this on a real payslip." },
-      { q: "Should payroll live inside the ERP or separately?", a: "Inside, if your finance team wants salary journals posted automatically. Separately is acceptable when HR is fully independent and volumes are low." },
     ],
   },
   {

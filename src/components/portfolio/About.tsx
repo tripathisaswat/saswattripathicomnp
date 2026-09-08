@@ -22,7 +22,7 @@ export const About = () => (
     <div className="max-w-7xl mx-auto">
       <p className="section-label mb-4">about.me</p>
       <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mb-16 max-w-3xl">
-        ERP, HR software and AI agents for Nepali businesses<span className="text-primary">.</span>
+        ERP and AI agents for Nepali businesses<span className="text-primary">.</span>
       </h2>
 
       <div className="grid lg:grid-cols-2 gap-12 mb-20">

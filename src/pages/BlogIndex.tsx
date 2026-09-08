@@ -7,8 +7,8 @@ import { POSTS, SITE_URL } from "@/lib/site";
 const BlogIndex = () => (
   <PageLayout crumbs={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]}>
     <Seo
-      title="Blog — ERP, HR Software & Software Development in Nepal"
-      description="Practical writing on ERP, HR and payroll software, AI agents, and what custom software really costs in Nepal — from a project manager who ships it."
+      title="Blog — ERP, AI Agents & Software Development in Nepal"
+      description="Practical writing on ERP, AI agents, and what custom software really costs in Nepal — from a project manager who ships it."
       path="/blog"
       jsonLd={[
         {
