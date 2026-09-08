@@ -60,7 +60,7 @@ const staticPages = [
     path: "/",
     title: "Saswat Tripathi — ERP Project Manager & Software Consultant in Nepal",
     description:
-      "Project Manager at Neosoftware, Lalitpur. ERP development, HR & payroll software, AI agents and software consulting for businesses in Nepal. 5+ years building home-grown ERP systems.",
+      "Project Manager at Neosoftware, Lalitpur. ERP development, AI agents and software consulting for businesses in Nepal. 5+ years building home-grown ERP systems.",
     priority: "1.0",
     changefreq: "weekly",
   },
@@ -74,9 +74,9 @@ const staticPages = [
   },
   {
     path: "/blog",
-    title: "Blog — ERP, HR Software & AI Agents in Nepal | Saswat Tripathi",
+    title: "Blog — ERP, AI Agents & Software Development in Nepal | Saswat Tripathi",
     description:
-      "Practical writing on ERP buying, HR and payroll software, and AI agents for Nepali businesses — from someone who ships them.",
+      "Practical writing on ERP buying, AI agents, and what custom software really costs in Nepal — from someone who ships them.",
     priority: "0.8",
     changefreq: "weekly",
   },
