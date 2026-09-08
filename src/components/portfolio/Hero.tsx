@@ -23,7 +23,7 @@ export const Hero = () => (
 
         <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
           I'm <span className="text-foreground">Saswat Tripathi</span> — Project Manager at
-          Neosoftware in Lalitpur. I lead ERP and HR/payroll software delivery, consult on
+          Neosoftware in Lalitpur. I lead ERP software delivery, consult on
           software strategy, and build AI agents that automate real business workflows.
         </p>
 
